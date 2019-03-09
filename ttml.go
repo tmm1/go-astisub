@@ -14,6 +14,7 @@ import (
 
 	"github.com/asticode/go-astitools/map"
 	"github.com/asticode/go-astitools/string"
+	"github.com/asticode/go-astitools/unicode"
 	"github.com/pkg/errors"
 )
 
@@ -291,6 +292,12 @@ func (d TTMLInDuration) duration() time.Duration {
 
 // ReadFromTTML parses a .ttml content
 func ReadFromTTML(i io.Reader) (o *Subtitles, err error) {
+	// Create unicode reader
+	if i, err = astiunicode.NewReader(i); err != nil {
+		err = errors.Wrap(err, "astisub: creating unicode reader failed")
+		return
+	}
+
 	// Init
 	o = NewSubtitles()
 
