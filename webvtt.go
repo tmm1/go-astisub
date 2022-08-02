@@ -483,6 +483,10 @@ func (s Subtitles) WriteToWebVTT(o io.Writer) (err error) {
 	return
 }
 
+func (l Line) WebVTTBytes() (c []byte) {
+	return l.webVTTBytes()
+}
+
 func (l Line) webVTTBytes() (c []byte) {
 	if l.VoiceName != "" {
 		c = append(c, []byte("<v "+l.VoiceName+">")...)
